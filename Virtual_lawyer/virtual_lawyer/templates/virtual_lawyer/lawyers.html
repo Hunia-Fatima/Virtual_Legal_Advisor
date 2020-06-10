@@ -1,0 +1,87 @@
+{% extends "virtual_lawyer/base.html" %}
+{% block content %}
+{% load static %}
+        <!-- bradcam_area_start -->
+        <div class="slider_area " >
+            <div class="single_slider d-flex align-items-center justify-content-center slider_bg_1">
+                <div class="container">
+                    <div class="row align-items-center justify-content-center">
+        
+                        <div class="col-xl-12 col-md-12">
+                            <div class="slider_info" style="text-align: center">
+                                <h3>Legal Assistants </h3>
+                            </div>
+                        </div>
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- bradcam_area_end -->
+
+  <!-- lawyers_area_start -->
+<div class="about_area">
+        <div class="container">
+
+        <table class="table table-hover">
+            <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Expertise</th>
+                            <th scope="col">Chamber Number</th>
+                            <th scope="col">Fees</th>
+                            <th scope="col">Office Hours</th>
+                            <th scope="col">Office Address</th>
+                            <th scope="col">Contact Number</th>
+                        </tr>
+            </thead>
+                    <tbody>
+                        {% for val in all_lawyers  %}
+                        {% if val %}
+                        <tr>
+                            <td>{{val.Name}}</td>
+                            <td>{{val.Expertise}}</td>
+                            <td>{{val.Chamber}}</td>
+                            <td>{{val.minFee}} ~ {{val.maxFee}}</td>
+                            <td>{{val.officeHours}}</td>
+                            <td>{{val.Address}}</td>
+                            <td>{{val.Contact}}</td>
+                        </tr>
+                        {% endif %}
+
+                        {% endfor %}
+                        {% for val in all_lawyers  %}
+                        {% if val %}
+                        <tr>
+                            <td>{{val.Name}}</td>
+                            <td>{{val.Expertise}}</td>
+                            <td>{{val.Chamber}}</td>
+                            <td>{{val.minFee}} ~ {{val.maxFee}}</td>
+                            <td>{{val.officeHours}}</td>
+                            <td>{{val.Address}}</td>
+                            <td>{{val.Contact}}</td>
+                        </tr>
+                        {% endif %}
+
+                        {% endfor %}
+                        {% for val in all_lawyers  %}
+                        {% if val %}
+                        <tr>
+                            <td>{{val.Name}}</td>
+                            <td>{{val.Expertise}}</td>
+                            <td>{{val.Chamber}}</td>
+                            <td>{{val.minFee}} ~ {{val.maxFee}}</td>
+                            <td>{{val.officeHours}}</td>
+                            <td>{{val.Address}}</td>
+                            <td>{{val.Contact}}</td>
+                        </tr>
+                        {% endif %}
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- about_area_end -->
+    {% endblock %}

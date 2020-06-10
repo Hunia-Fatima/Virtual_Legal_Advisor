@@ -1,0 +1,14 @@
+{% extends 'virtual_lawyer/base.html'%}
+{% block content %}
+<div class="content-section" style="margin-top:50px">
+    <div class="col-sm-6" style="margin-left:25%">
+        <h3>You have been Logged Out!</h3>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+               Want to Login?<a href="{%url 'virtual_lawyer:login'%}">Sign In</a>
+            </small>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

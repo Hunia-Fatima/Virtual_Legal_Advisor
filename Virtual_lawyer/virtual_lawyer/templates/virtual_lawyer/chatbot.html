@@ -1,0 +1,327 @@
+{% extends "virtual_lawyer/base.html" %}
+{% block content %}
+{% load static %}
+
+<script>
+
+    function searchKeyPress(e) {
+        // look for window.event in case event isn't passed in
+        e = e || window.event;
+        if (e.keyCode == 13) {
+            document.getElementById('chatBtn').click();
+        }
+    }
+    function addChoice(response) {
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        
+        var msg = response
+        
+        var current = new Date()
+        var dateTime = current.getHours() + ":" + current.getMinutes() + " | " + monthNames[current.getMonth()] + " " +
+            current.getDate();
+
+
+        var recieved_chats = document.createElement("div")
+        recieved_chats.className = "cb-recieved-chats"
+        recieved_chats.onclick = function(){
+            addChat(response)
+        }
+
+        var recieved_chat_img = document.createElement("div")
+        recieved_chat_img.className = "cb-recieved-chat-img"
+        recieved_chats.appendChild(recieved_chat_img)
+
+        var img = document.createElement("img")
+        img.src = "{% static 'virtual_lawyer/img/logo.jpg' %}"
+        img.id = "cb-img-chat"
+
+        var recieved_msg = document.createElement("div")
+        recieved_msg.className = "cb-recieved-msg"
+
+        var recieved_msg_inbox = document.createElement("div")
+        recieved_msg_inbox.className = "cb-recieved-msg-inbox"
+
+        var para = document.createElement("p")
+        para.innerHTML = msg
+
+        var time = document.createElement("span")
+        time.className = "cb-time"
+        time.innerHTML = dateTime
+
+        recieved_msg_inbox.appendChild(para)
+        recieved_msg_inbox.appendChild(time)
+        recieved_msg.appendChild(recieved_msg_inbox)
+        recieved_chats.appendChild(recieved_msg)
+        recieved_chat_img.appendChild(img)
+        recieved_chats.appendChild(recieved_chat_img)
+
+        var x = document.getElementById("cb-msg-page")
+        x.appendChild(recieved_chats)
+
+
+    }
+    function addChat(param) {
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        var msg;
+        if (param){
+             msg = param
+        }
+        else{
+        msg = document.getElementById("cb-form-control").value;
+        }
+        console.log("*********************")
+        console.log(msg)
+        console.log("********************")
+        var BotResponse = ""
+        $.ajax({
+            url: '{% url "virtual_lawyer:getChat" %}',
+            type: "POST",
+            data: {
+                talk: msg
+            },
+            success: function (data) {
+                console.log("my name is qaim")
+                console.log(data + ' here what i want')
+                addBotChat(data);
+                // addChoice(data);
+
+            }
+        })
+        document.getElementById("cb-form-control").value = " ";
+        var current = new Date()
+        var dateTime = current.getHours() + ":" + current.getMinutes() + " | " + monthNames[current.getMonth()] + " " +
+            current.getDate();
+
+        var outgoing_chats = document.createElement("div")
+        outgoing_chats.className = "cb-outgoing-chats"
+
+        var outgoing_chat_img = document.createElement("div")
+        outgoing_chat_img.className = "cb-outgoing-chat-img"
+        outgoing_chats.appendChild(outgoing_chat_img)
+
+        var img = document.createElement("img")
+        img.src = "{% static 'virtual_lawyer/img/logo.jpg' %}"
+        img.id = "cb-img-chat"
+
+        var outgoing_msg = document.createElement("div")
+        outgoing_msg.className = "cb-outgoing-msg"
+
+        var outgoing_msg_inbox = document.createElement("div")
+        outgoing_msg_inbox.className = "cb-outgoing-msg-inbox"
+
+        var para = document.createElement("p")
+        para.innerHTML = msg
+
+        var time = document.createElement("span")
+        time.className = "cb-time"
+        time.innerHTML = dateTime
+
+        outgoing_msg_inbox.appendChild(para)
+        outgoing_msg_inbox.appendChild(time)
+        outgoing_msg.appendChild(outgoing_msg_inbox)
+        outgoing_chats.appendChild(outgoing_msg)
+        outgoing_chat_img.appendChild(img)
+        outgoing_chats.appendChild(outgoing_chat_img)
+
+        var x = document.getElementById("cb-msg-page")
+        x.appendChild(outgoing_chats)
+
+
+    }
+
+    
+
+    function addChoice(response) {
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        
+        var msg = response
+        
+        var current = new Date()
+        var dateTime = current.getHours() + ":" + current.getMinutes() + " | " + monthNames[current.getMonth()] + " " +
+            current.getDate();
+
+        var recieved_chats = document.createElement("div")
+        recieved_chats.className = "cb-recieved-chats";
+        recieved_chats.onclick = addChat(response);
+
+        var recieved_chat_img = document.createElement("div")
+        recieved_chat_img.className = "cb-recieved-chat-img"
+        recieved_chats.appendChild(recieved_chat_img)
+
+        var img = document.createElement("img")
+        img.src = "{% static 'virtual_lawyer/img/logo.jpg' %}"
+        img.id = "cb-img-chat"
+
+        var recieved_msg = document.createElement("div")
+        recieved_msg.className = "cb-recieved-msg"
+
+        var recieved_msg_inbox = document.createElement("div")
+        recieved_msg_inbox.className = "cb-recieved-msg-inbox"
+
+        var para = document.createElement("p")
+        para.innerHTML = msg
+
+        var time = document.createElement("span")
+        time.className = "cb-time"
+        time.innerHTML = dateTime
+
+        recieved_msg_inbox.appendChild(para)
+        recieved_msg_inbox.appendChild(time)
+        recieved_msg.appendChild(recieved_msg_inbox)
+        recieved_chats.appendChild(recieved_msg)
+        recieved_chat_img.appendChild(img)
+        recieved_chats.appendChild(recieved_chat_img)
+
+        var x = document.getElementById("cb-msg-page")
+        x.appendChild(recieved_chats)
+
+
+    }
+
+
+
+
+    function addBotChat(response) {
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        var msg = response
+
+        var current = new Date()
+        var dateTime = current.getHours() + ":" + current.getMinutes() + " | " + monthNames[current.getMonth()] + " " +
+            current.getDate();
+
+        var recieved_chats = document.createElement("div")
+        recieved_chats.className = "cb-recieved-chats"
+
+        var recieved_chat_img = document.createElement("div")
+        recieved_chat_img.className = "cb-recieved-chat-img"
+        recieved_chats.appendChild(recieved_chat_img)
+
+        var img = document.createElement("img")
+        img.src = "{% static 'virtual_lawyer/img/logo.jpg' %}"
+        img.id = "cb-img-chat"
+
+        var recieved_msg = document.createElement("div")
+        recieved_msg.className = "cb-recieved-msg"
+
+        var recieved_msg_inbox = document.createElement("div")
+        recieved_msg_inbox.className = "cb-recieved-msg-inbox"
+
+        var para = document.createElement("p")
+        para.innerHTML = msg
+
+        var time = document.createElement("span")
+        time.className = "cb-time"
+        time.innerHTML = dateTime
+
+        recieved_msg_inbox.appendChild(para)
+        recieved_msg_inbox.appendChild(time)
+        recieved_msg.appendChild(recieved_msg_inbox)
+        recieved_chats.appendChild(recieved_msg)
+        recieved_chat_img.appendChild(img)
+        recieved_chats.appendChild(recieved_chat_img)
+
+        var x = document.getElementById("cb-msg-page")
+        x.appendChild(recieved_chats)
+
+
+    }
+
+    function AddOptionInput(){
+
+        var input = document.getElementById("optionInput").value
+        addChoice(input)
+        
+
+
+    }
+</script>
+<div class="slider_area " >
+    <div class="single_slider d-flex align-items-center justify-content-center slider_bg_3">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+
+                <div class="col-xl-12 col-md-12">
+                    <div class="slider_info" style="text-align: center" onclick="AddOptionInput()">
+                        <h3>Welcome </h3>
+                        <a href="#" class="boxed_btn">Start Chat</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div >
+    <input type = "text" id = "optionInput"/>
+    <button onclick="AddOptionInput()">Add option</button>
+
+</div> -->
+<div class="cb-container col-lg-12">
+    <div class="cb-msg-header">
+        <div class="cb-msg-header-img">
+            <img id="cb-img-chat-head" src="{% static 'virtual_lawyer/img/logo.jpg' %}">
+        </div>
+        <div class="cb-active">
+            <h4>VLA</h4>
+            <h6>Online</h6>
+        </div>
+
+    </div>
+
+    <div class="cb-chat-page">
+        <div class="cb-msg-inbox">
+            <div class="cb-chats">
+                <div class="cb-msg-page" id="cb-msg-page">
+
+                    <div class="cb-recieved-chats">
+                        <div class="cb-recieved-chat-img">
+                            <img id="cb-img-chat" src="{% static 'virtual_lawyer/img/logo.jpg' %}">
+                        </div>
+                        <div class="cb-recieved-msg">
+                            <div class="cb-recieved-msg-inbox">
+                                <p>
+                                    Hi! How can I help you?
+                                </p>
+                                <span class="cb-time">11:01 | October 11</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="cb-msg-bottom" id="cb-msg-bottom">
+        <div class="cb-input-group" id="cb-input-group">
+            <textarea  type="text" class="cb-form-control" onkeypress="return searchKeyPress(event);" id="cb-form-control"
+                placeholder="write message..." name="talk" required > </textarea>
+            <div class="cb-input-group-append">
+                <input type='hidden' value={{BotResponse}} id='botResponse'>
+                <button class="cb-input-group-text" id="chatBtn" name='taskAdd' type="submit" onclick="addChat()">
+                    <i class="fa fa-paper-plane"></i>
+                </button>
+
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+{% endblock %}

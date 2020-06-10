@@ -1,0 +1,39 @@
+{% extends 'virtual_lawyer/base.html'%}
+
+
+{% block content %}
+
+{% load static %}
+<div class="slider_area " >
+    <div class="single_slider d-flex align-items-center justify-content-center slider_bg_2">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+
+                <div class="col-xl-12 col-md-12">
+                    <div class="slider_info" style="text-align: center">
+                        <h3>Login </h3>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{%load crispy_forms_tags%}
+<div class="content-section" style="margin-top:100px">
+    <div class="col-sm-6" style="margin-left:25%">
+        <form method="POST" action="login">
+            {% csrf_token %}
+            {{form|crispy}}
+            <button class=" btn btn-outline-info" type="submit">Sign In</button>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Need an Account?<a href="{%url 'virtual_lawyer:register'%}">SignUp</a>
+            </small>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
